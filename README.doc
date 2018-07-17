@@ -1,0 +1,41 @@
+Prerequisite: ruby version >= 2.1.2
+
+Sample output for an input of [[3,2], [3,4], [2,3]] and passenger count of 21 would look like:
+[14  19  01]   [02  20  03]    [04  15]
+[16  21  05]   [06  xx  07]    [08  17]
+               [09  xx  10]    [11  18]
+               [12  xx  13] 
+
+On terminal Run: $ruby user_interaction.rb
+This will give user interactive screen, will ask for different type of seat matrix that user expects and passenger count.
+Produce the arranged seat matrix and number of passengers in queue.
+
+Ex:
+For seat matrix [[3,2], [3,4], [2,3]]
+
+After running $ruby user_interaction.rb
+Input:
+Enter number of seat matrix arrangement in Flight:
+3
+Number of row(s) in of seat matrix 0
+3
+Number of column(s) in of seat matrix 0
+2
+Number of row(s) in of seat matrix 1
+3
+Number of column(s) in of seat matrix 1
+4
+Number of row(s) in of seat matrix 2
+2
+Number of column(s) in of seat matrix 2
+3
+Enter number of Passangers:
+21
+
+Output:
+Seat Arrangement Chart
+[14, 19, 1]  [2, 20, 3]    [4, 15]
+[16, 21, 5]  [6, "XX", 7]  [8, 17]
+             [9, "XX", 10] [11, 18]
+             [12, "XX", 13]
+Number of passangers waiting in queue: 0

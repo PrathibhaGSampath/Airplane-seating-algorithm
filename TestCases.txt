@@ -1,0 +1,23 @@
+Test Cases Handled
+
+Input = [] => Invalid Input
+
+Input = [""] => Invalid input
+
+Input = [[1,2,3]] => Invalid input
+
+Input = [1] => Invalid Input
+
+Input = [[1]] => Seat Matrix [1] (Valid Input)
+
+Input = [[[1]]] => Invalid Input
+
+Input =  [[3,2]] => Seat Matrix [3, 5, 1]
+                                [4, 6, 2](Valid Input)
+Input =  [[3,4], [2,3]] => Seat Matrix  [8, 15, 1]  [2, 9]
+                                        [10, 16, 3] [4, 11]
+                                        [12, 17, 5] [6, 13]
+                                        [14, 18, 7]          (Valid Input)
+
+
+Any input other than array of 2D array is considered as "Invalid Input"
