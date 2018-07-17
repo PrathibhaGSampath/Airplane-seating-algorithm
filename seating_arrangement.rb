@@ -1,11 +1,10 @@
 require_relative 'common_function'
 
 class SeatingArrangement
-@seat_matrix = []
-@total_number_of_passenger = 0
 
   def initialize(user_input)
     @seat_matrix = user_input
+    @total_number_of_passenger = 0
   end
 
   def get_seating_chart(passengers_count)
