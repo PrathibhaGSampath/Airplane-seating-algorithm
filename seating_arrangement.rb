@@ -1,64 +1,66 @@
 require_relative 'common_function'
 
 class SeatingArrangement
+@seat_matrix = []
+@total_number_of_passenger = 0
 
-  def get_seating_chart(user_input, passengers)
-    if CommonFunction.validate_input(user_input)
-      @total_number_of_seats_available = 0
-      @total_number_of_passenger = passengers
-      queue_count = 0
+  def initialize(user_input)
+    @seat_matrix = user_input
+  end
 
-      #Counting Number of Passengers in Queue.
-      user_input.map{|i| @total_number_of_seats_available += (i.first * i.last)}
-      if @total_number_of_passenger > @total_number_of_seats_available
-        queue_count = @total_number_of_passenger - @total_number_of_seats_available
-      end
-
-      #Creating rowwise seat matrix
-      rows_matrices = rowwise_seat_matrix(user_input)
-      #Giving number to seat matrix
-      return arrange_seat_matrix(rows_matrices), queue_count
-    else
-      return []
+  def get_seating_chart(passengers_count)
+    total_number_of_seats_available = 0
+    @total_number_of_passenger = passengers_count
+    queue_count = 0
+    p "@seat_matrix", @seat_matrix
+    #Counting Number of Passengers in Queue.
+    @seat_matrix.map{|i| total_number_of_seats_available += (i.first * i.last)}
+    if @total_number_of_passenger > total_number_of_seats_available
+      queue_count = @total_number_of_passenger - total_number_of_seats_available
     end
+
+    #Creating rowwise seat matrix
+    @seat_matrix = rowwise_seat_matrix
+    #Giving number to seat matrix
+    return arrange_seat_matrix, queue_count
   end
 
   private
 
-  def arrange_seat_matrix(rows_matrices)
+  def arrange_seat_matrix
     count = 1
     #Assigning aisel seats numbers
     if count <= @total_number_of_passenger
-      result = assign_seats_number("aisel",rows_matrices, count)
-      rows_matrices = result[:numbered_matrix]
+      result = assign_seats_number("aisel", count)
+      @seat_matrix = result[:numbered_matrix]
       count = result[:count]
     end
 
     #Assigning windows seats numbers
     if count <= @total_number_of_passenger
-      result = assign_seats_number("window", rows_matrices, count)
-      rows_matrices = result[:numbered_matrix]
+      result = assign_seats_number("window",count)
+      @seat_matrix = result[:numbered_matrix]
       count = result[:count]
     end
 
     #Assigning middle seats numbers
     if count <= @total_number_of_passenger
-      result = assign_seats_number("middle", rows_matrices, count)
-      rows_matrices = result[:numbered_matrix]
+      result = assign_seats_number("middle", count)
+      @seat_matrix = result[:numbered_matrix]
     end
 
-    return rows_matrices
+    return @seat_matrix
   end
 
   #Method to create row wise seat matrix
-  def rowwise_seat_matrix(user_input)
+  def rowwise_seat_matrix
     number_of_columns = []
-    user_input.map{|item| number_of_columns << item.last}
+    @seat_matrix.map{|item| number_of_columns << item.last}
     number_of_rows = number_of_columns.flatten.uniq.max
     result =[]
     number_of_rows.times do |row|
       row_array = Array.new()
-      user_input.each do |seat_matrix|
+      @seat_matrix.each do |seat_matrix|
         unless seat_matrix.last <= row
          row_array << Array.new(seat_matrix.first, "XX") #Initializing array with string value "XX"
         else
@@ -70,10 +72,10 @@ class SeatingArrangement
     return result
   end
 
-  def assign_seats_number(seat_type, rows_matrices, count)
+  def assign_seats_number(seat_type, count)
     response = {}
     response[:numbered_matrix] = []
-    rows_matrices.each do |row_matrix|
+    @seat_matrix.each do |row_matrix|
       seat_method_type = case seat_type.upcase
       when "AISEL"
         result = number_aisel_seats(row_matrix, count)
@@ -85,7 +87,7 @@ class SeatingArrangement
         response[:numbered_matrix] << result[:seat_matrix]
         response[:count] = 1
       end
-      response[:numbered_matrix] = rows_matrices
+      response[:numbered_matrix] = @seat_matrix
       response[:count] = count = result[:count]
     end
     return response

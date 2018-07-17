@@ -15,4 +15,4 @@ puts "Enter number of Passangers:"
 passangers_count = gets.chomp.to_i
 
 airline = Airline.new()
-airline.seat_matrix_chart(user_input, passangers_count)
+airline.book_seat(user_input, passangers_count)
