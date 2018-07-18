@@ -1,4 +1,5 @@
 require_relative 'airline'
+require_relative 'common_function'
 
 user_input = Array.new()
 puts "Enter number of seat matrix arrangement in Flight:"
@@ -15,4 +16,5 @@ puts "Enter number of Passangers:"
 passangers_count = gets.chomp.to_i
 
 airline = Airline.new()
-airline.book_seat(user_input, passangers_count)
+(seat_chart, queue_count) = airline.seat_arrangement(user_input, passangers_count)
+CommonFunction.dispaly_seat_chart(seat_chart, queue_count)

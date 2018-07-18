@@ -19,4 +19,22 @@ class CommonFunction
     return isValid
   end
 
+  def self.dispaly_seat_chart(seat_chart, number_of_passengers_in_queue)
+    if (seat_chart.is_a? Array) && seat_chart.any?
+      puts
+      puts "Seat Arrangement Chart"
+      seat_chart.each do |row|
+        row.each do |matrix|
+          print  matrix if matrix.any?
+          print  " " * 2
+          print  " " * 10 unless matrix.any?
+        end
+        puts
+      end
+      puts "Number of passangers waiting in queue: #{number_of_passengers_in_queue}"
+    else
+      puts "Invalid Input Type"
+    end
+  end
+
 end

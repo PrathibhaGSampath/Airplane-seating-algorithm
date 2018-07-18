@@ -1,27 +1,33 @@
 require_relative 'common_function'
 
-class SeatingArrangement
-
-  def initialize(user_input)
-    @seat_matrix = user_input
-    @total_number_of_passenger = 0
+class Seat
+  def initialize(seat_matrix)
+    @seat_matrix = seat_matrix
   end
 
   def get_seating_chart(passengers_count)
-    total_number_of_seats_available = 0
-    @total_number_of_passenger = passengers_count
-    queue_count = 0
-    p "@seat_matrix", @seat_matrix
-    #Counting Number of Passengers in Queue.
-    @seat_matrix.map{|i| total_number_of_seats_available += (i.first * i.last)}
-    if @total_number_of_passenger > total_number_of_seats_available
-      queue_count = @total_number_of_passenger - total_number_of_seats_available
+    if CommonFunction.validate_input(@seat_matrix)
+      arrangement
+      management(passengers_count)
+      return arrange_seat_matrix, @queue_count
+    else
+      return []
     end
+  end
 
-    #Creating rowwise seat matrix
+  def arrangement
+    @total_number_of_seats_available = 0
+    @seat_matrix.map{|i| @total_number_of_seats_available += (i.first * i.last)}
     @seat_matrix = rowwise_seat_matrix
-    #Giving number to seat matrix
-    return arrange_seat_matrix, queue_count
+  end
+
+  def management(passengers_count)
+    @total_number_of_passenger = passengers_count
+    @queue_count = 0
+    #Counting Number of Passengers in Queue.
+    if @total_number_of_passenger > @total_number_of_seats_available
+      @queue_count = @total_number_of_passenger - @total_number_of_seats_available
+    end
   end
 
   private
@@ -164,5 +170,6 @@ class SeatingArrangement
 
     return result
   end
+
 
 end
