@@ -10,8 +10,6 @@ class Seat
       arrangement
       management(passengers_count)
       return arrange_seat_matrix, @queue_count
-    else
-      return []
     end
   end
 
@@ -22,6 +20,7 @@ class Seat
   end
 
   def management(passengers_count)
+    passengers_count ||= 0
     @total_number_of_passenger = passengers_count
     @queue_count = 0
     #Counting Number of Passengers in Queue.
